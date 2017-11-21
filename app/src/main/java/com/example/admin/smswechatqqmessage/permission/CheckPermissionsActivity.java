@@ -1,11 +1,13 @@
 package com.example.admin.smswechatqqmessage.permission;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -17,9 +19,12 @@ import java.util.List;
 
 /**
  * Android6.0处理权限类
- * Created by Y on 2017/5/25.
+ *
+ * @author yang
+ * @date 2017/5/25
  */
 
+@SuppressLint("Registered")
 public class CheckPermissionsActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -49,7 +54,7 @@ public class CheckPermissionsActivity extends AppCompatActivity implements
 
     /**
      * 检测权限数组
-     * @param
+     * @param permissions 权限列
      * @since 2.5.0
      */
     private void checkPermissions(String... permissions) {
@@ -65,30 +70,30 @@ public class CheckPermissionsActivity extends AppCompatActivity implements
 
     /**
      * 获取权限集中需要申请权限的列表
-     * @param permissions
-     * @return
+     * @param permissions 权限列
+     * @return 全向列表
      * @since 2.5.0
      */
     private List<String> findDeniedPermissions(String[] permissions) {
-        List<String> needRequestPermissonList = new ArrayList<String>();
+        List<String> needRequestPermissonsList = new ArrayList<>();
         for (String perm : permissions) {
             if (ContextCompat.checkSelfPermission(this,
                     perm) != PackageManager.PERMISSION_GRANTED) {
-                needRequestPermissonList.add(perm);
+                needRequestPermissonsList.add(perm);
             } else {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
                         this, perm)) {
-                    needRequestPermissonList.add(perm);
+                    needRequestPermissonsList.add(perm);
                 }
             }
         }
-        return needRequestPermissonList;
+        return needRequestPermissonsList;
     }
 
     /**
      * 检测是否说有的权限都已经授权
-     * @param grantResults
-     * @return
+     * @param grantResults 权限结果
+     * @return 是否授权
      * @since 2.5.0
      *
      */
@@ -102,8 +107,7 @@ public class CheckPermissionsActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] paramArrayOfInt) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] paramArrayOfInt) {
         if (requestCode == PERMISSON_REQUESTCODE) {
             if (!verifyPermissions(paramArrayOfInt)) {
                 showMissingPermissionDialog();

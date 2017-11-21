@@ -1,5 +1,6 @@
 package com.example.admin.smswechatqqmessage.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -9,6 +10,7 @@ import java.util.Map;
 
 /**
  * SharedPreferences封装类SPUtils
+ * @author daxian
  */
     public class SharedPreferencesUtils {
     /**
@@ -17,6 +19,7 @@ import java.util.Map;
     private static SharedPreferencesUtils INSTANCE;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    @SuppressLint("CommitPrefEdits")
     private SharedPreferencesUtils(Context mContext, String fileName) {
         this.sp = mContext.getSharedPreferences(fileName, Context.MODE_PRIVATE);
         editor = sp.edit();

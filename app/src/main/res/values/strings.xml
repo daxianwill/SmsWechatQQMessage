@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SmsWechatQQMessage</string>
+    <string name="weibosdk_demo_obtain_token_hint"><b>请注意：</b>\n<li>SSO 登录需要微博客户端的支持，目前仅 3.0.0 及以上微博客户端版本支持 SSO；如果未安装，将自动转为 Oauth2.0 Web 授权认证（即第一种认证方式）</li>\n<li>如果您通过方式一和方式二获取不到 Token，而是获取到 code，那说明您的包名和签名存在问题，请到开放平台注册包名和签名。详情请查看 FAQ 文档</li></string>
+    <string name="weibosdk_demo_token_to_string_format_1">Token：%1$s \n有效期：%2$s</string>
+    <string name="weibosdk_demo_token_has_existed">Token 仍在有效期内，无需再次登录。</string>
 </resources>

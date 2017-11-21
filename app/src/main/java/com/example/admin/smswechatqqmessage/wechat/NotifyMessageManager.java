@@ -60,8 +60,8 @@ public class NotifyMessageManager {
     }
 
     /**
-     * 判断权限是否打开
-     * @return
+     * 判断Notify权限是否打开
+     * @return true->Notify权限打开
      */
     private boolean isEnabled() {
         String pkgName = mContext.getPackageName();
@@ -108,7 +108,7 @@ public class NotifyMessageManager {
                     Toast.makeText(mContext,"微信信息："+message,Toast.LENGTH_SHORT).show();
                     break;
                 case QQ:
-                    Toast.makeText(mContext,"QQ信息："+message,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"QQ信息："+message  ,Toast.LENGTH_SHORT).show();
                     break;
                 case CALL:
                     Toast.makeText(mContext,"电话信息："+message,Toast.LENGTH_SHORT).show();

@@ -3,15 +3,19 @@ package com.example.admin.smswechatqqmessage;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.example.admin.smswechatqqmessage.permission.CheckPermissionsActivity;
+import com.example.admin.smswechatqqmessage.util.AppConstants;
 import com.example.admin.smswechatqqmessage.util.SharedPreferencesUtils;
 import com.example.admin.smswechatqqmessage.wechat.MessageService;
 
+/**
+ * 主页面
+ * @author daxian
+ */
 public class MainActivity extends CheckPermissionsActivity {
 
     private SharedPreferencesUtils sp;
@@ -21,10 +25,10 @@ public class MainActivity extends CheckPermissionsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        openSetting();//是否开启notification服务
+        //是否开启notification服务
+        openSetting();
 
         sp = SharedPreferencesUtils.getInstance(this,"message");
-
         //防止每一次进入都开启一个Service
         if (sp.get("app_state",0).toString().equals("1")){
             Intent stopIntent = new Intent(this, MessageService.class);
@@ -35,7 +39,7 @@ public class MainActivity extends CheckPermissionsActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sp.put("app_state",2);
+        sp.put(AppConstants.APP_STATE,2);
     }
 
     /**
@@ -60,8 +64,8 @@ public class MainActivity extends CheckPermissionsActivity {
                 ENABLED_NOTIFICATION_LISTENERS);
         if (!TextUtils.isEmpty(flat)) {
             final String[] names = flat.split(":");
-            for (int i = 0; i < names.length; i++) {
-                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
+            for (String name : names) {
+                final ComponentName cn = ComponentName.unflattenFromString(name);
                 if (cn != null) {
                     if (TextUtils.equals(pkgName, cn.getPackageName())) {
                         return true;
